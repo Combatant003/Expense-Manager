@@ -6,7 +6,6 @@ from chart_generator import get_chart_data
 
 app = FastAPI()
 
-# Allow React frontend to connect
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -19,10 +18,10 @@ async def upload_pdf(file: UploadFile = File(...)):
     contents = await file.read()
     text = extract_text_from_pdf(contents)
 
-    insights = get_insights(text)
-    charts = get_chart_data(text)
+    insight_json = get_insights(text)
+    charts = get_chart_data(insight_json)
 
     return {
-        "insights": insights,
+        "insights": insight_json["summary"],
         "charts": charts
     }

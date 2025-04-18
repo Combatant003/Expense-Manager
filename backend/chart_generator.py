@@ -1,48 +1,50 @@
-import pandas as pd
-from typing import Dict
+def get_chart_data(insight_json: dict) -> dict:
+    categories = insight_json.get("categories", [])
+    monthly = insight_json.get("monthly_trend", [])
 
-def get_chart_data(text: str) -> Dict:
-    # You can enhance this later to parse actual expense entries
-    categories = ['Housing', 'Food', 'Transportation', 'Utilities', 'Entertainment']
-    amounts = [1200, 800, 500, 300, 200]
+    pie_labels = [c["category"] for c in categories]
+    pie_data = [int(c["amount"]) for c in categories]  # 👈 Force int here
 
-    df = pd.DataFrame({
-        'Category': categories,
-        'Amount': amounts,
-        'Month': ['Jan', 'Jan', 'Jan', 'Jan', 'Jan']
-    })
+    bar_labels = [m["month"] for m in monthly]
+    bar_data = [int(m["amount"]) for m in monthly]     # 👈 Force int here
+
+    cumulative = []
+    total = 0
+    for amt in bar_data:
+        total += amt
+        cumulative.append(total)
 
     return {
         "pie": {
-            "labels": df["Category"].tolist(),
+            "labels": pie_labels,
             "datasets": [{
-                "data": df["Amount"].tolist(),
+                "data": pie_data,
                 "backgroundColor": [
-                    "#4F46E5", "#F59E0B", "#10B981", "#8B5CF6", "#EC4899"
+                    "#4F46E5", "#F59E0B", "#10B981", "#8B5CF6", "#EC4899", "#94A3B8"
                 ]
             }]
         },
         "bar": {
-            "labels": df["Month"].tolist(),
+            "labels": bar_labels,
             "datasets": [{
                 "label": "Monthly Expenditure ($)",
-                "data": df["Amount"].tolist(),
+                "data": bar_data,
                 "backgroundColor": "#3B82F6"
             }]
         },
         "top": {
-            "labels": df["Category"].tolist(),
+            "labels": pie_labels,
             "datasets": [{
                 "label": "Top Categories ($)",
-                "data": df["Amount"].tolist(),
+                "data": pie_data,
                 "backgroundColor": ["#F59E0B", "#3B82F6", "#10B981", "#8B5CF6", "#EC4899"]
             }]
         },
         "line": {
-            "labels": ["Jan", "Feb", "Mar"],
+            "labels": bar_labels,
             "datasets": [{
                 "label": "Cumulative Spend ($)",
-                "data": [800, 1600, 2500],
+                "data": cumulative,
                 "borderColor": "#10B981",
                 "backgroundColor": "#D1FAE5",
                 "fill": True,
