@@ -1,0 +1,62 @@
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #ffffff;
+  overflow-x: hidden;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 1440px;
+  padding: 2rem 2rem;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.upload-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.upload-input {
+  background: white;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.insight-box {
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.chart-card {
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  height: auto;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.chart-card canvas {
+  max-width: 100% !important;
+  max-height: 300px !important;
+  height: auto !important;
+  width: auto !important;
+}

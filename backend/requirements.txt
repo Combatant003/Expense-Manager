@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pdfplumber
+pandas
+langchain
+langchain-community
+faiss-cpu
+ollama
